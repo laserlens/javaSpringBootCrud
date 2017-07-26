@@ -1,0 +1,17 @@
+package com.astontech.hr.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+/**
+ * Created by Adrian.Flak on 7/11/2017.
+ */
+@Controller
+public class AdminController {
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String adminHome() {
+        return "admin/adminHome";
+    }
+}
