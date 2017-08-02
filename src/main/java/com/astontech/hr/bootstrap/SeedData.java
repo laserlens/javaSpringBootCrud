@@ -3,6 +3,7 @@ package com.astontech.hr.bootstrap;
 import com.astontech.hr.domain.*;
 import com.astontech.hr.services.ElementService;
 import com.astontech.hr.services.ElementTypeService;
+import com.astontech.hr.services.EmployeeService;
 import com.astontech.hr.services.impl.ElementServiceImpl;
 import com.astontech.hr.services.impl.ElementTypeServiceImpl;
 import com.astontech.hr.services.impl.VehicleMakeServiceImpl;
@@ -20,17 +21,27 @@ import java.util.List;
 @Component
 public class SeedData implements ApplicationListener<ContextRefreshedEvent> {
 
-    @Autowired
     private ElementTypeServiceImpl elementTypeService;
+    private VehicleMakeServiceImpl vehicleMakeService;
+    private EmployeeService employeeService;
+
 
     @Autowired
-    private VehicleMakeServiceImpl vehicleMakeService;
+    public SeedData( ElementTypeServiceImpl elementTypeService,
+             VehicleMakeServiceImpl vehicleMakeService,
+             EmployeeService employeeService){
+        this.elementTypeService = elementTypeService;
+        this.vehicleMakeService = vehicleMakeService;
+        this.employeeService = employeeService;
+    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        generateElementsAndElementTypes();
-        getnerateMakeModelAndVehicles();
+        //generateElementsAndElementTypes();
+        //getnerateMakeModelAndVehicles();
+        //generatePojectsAndEmployees();
+
 
     }
 
@@ -117,6 +128,30 @@ public class SeedData implements ApplicationListener<ContextRefreshedEvent> {
         vehicleMakeList.add(new VehicleMake("Make two", vehicleModelList2));
 
         vehicleMakeService.saveVehicleMakeList(vehicleMakeList);
+
+    }
+
+    private void generatePojectsAndEmployees(){
+        List<Project> projectList = new ArrayList<>();
+        List<Project> projectList2 = new ArrayList<>();
+        List<Project> projectList3 = new ArrayList<>();
+
+        List<Employee> employeeList = new ArrayList<>();
+
+        projectList.add(new Project( "project one",  "client one",  1));
+        projectList.add(new Project( "project two",  "client two",  2));
+        projectList.add(new Project( "project three",  "client three",  3));
+        projectList2.add(new Project( "project four",  "client four",  4));
+        projectList2.add(new Project( "project five",  "client five",  5));
+        projectList2.add(new Project( "project six",  "client six",  6));
+        projectList3.add(new Project( "project seven",  "client seven",  7));
+        projectList3.add(new Project( "project eight",  "client eight",  8));
+
+        employeeList.add(new Employee( "FirstName one",  "LastName one",  "background one", projectList));
+        employeeList.add(new Employee( "FirstName two",  "LastName two",  "background two",  projectList2));
+        employeeList.add(new Employee( "FirstName three",  "LastName three",  "background three", projectList3));
+
+        employeeService.saveListOfEmployees(employeeList);
 
     }
 

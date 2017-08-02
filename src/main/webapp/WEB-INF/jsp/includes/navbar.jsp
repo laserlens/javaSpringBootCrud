@@ -4,6 +4,6 @@
     <a href="/project">Project</a>
     <a href="/contaxt">Contact</a>
     <a href="/admin">Admin</a>
-    <a class="floatRight" href="#">Login</a>
+    <a class="floatRight" href="/logout">Logout</a>
     <a href="javascript:void(0);" class="icon" onclick="toggleResposive()">&#9776;</a>
 </div>

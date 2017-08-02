@@ -10,8 +10,11 @@ import org.springframework.stereotype.Controller;
 public class IndexController {
 
     @RequestMapping("/")
-    String index() {
+    public String index() {
         return "index";
     }
+
+    @RequestMapping(value = "/login")
+    public String login() { return "login";}
 
 }
