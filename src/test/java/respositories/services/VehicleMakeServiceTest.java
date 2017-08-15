@@ -1,6 +1,6 @@
 package respositories.services;
 
-import com.astontech.hr.application;
+import com.astontech.hr.Application;
 import com.astontech.hr.domain.Vehicle;
 import com.astontech.hr.domain.VehicleMake;
 import com.astontech.hr.domain.VehicleModel;
@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
  * Created by Adrian.Flak on 7/11/2017.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {application.class})
+@SpringApplicationConfiguration(classes = {Application.class})
 @WebAppConfiguration
 public class VehicleMakeServiceTest {
 

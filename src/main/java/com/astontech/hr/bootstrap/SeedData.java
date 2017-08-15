@@ -1,10 +1,7 @@
 package com.astontech.hr.bootstrap;
 
 import com.astontech.hr.domain.*;
-import com.astontech.hr.services.ElementService;
-import com.astontech.hr.services.ElementTypeService;
-import com.astontech.hr.services.EmployeeService;
-import com.astontech.hr.services.impl.ElementServiceImpl;
+import com.astontech.hr.services.*;
 import com.astontech.hr.services.impl.ElementTypeServiceImpl;
 import com.astontech.hr.services.impl.VehicleMakeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +21,17 @@ public class SeedData implements ApplicationListener<ContextRefreshedEvent> {
     private ElementTypeServiceImpl elementTypeService;
     private VehicleMakeServiceImpl vehicleMakeService;
     private EmployeeService employeeService;
+    private AddressService addressService;
 
 
     @Autowired
     public SeedData( ElementTypeServiceImpl elementTypeService,
-             VehicleMakeServiceImpl vehicleMakeService,
+             VehicleMakeServiceImpl vehicleMakeService,AddressService addressService,
              EmployeeService employeeService){
         this.elementTypeService = elementTypeService;
         this.vehicleMakeService = vehicleMakeService;
         this.employeeService = employeeService;
+        this.addressService = addressService;
     }
 
     @Override
@@ -40,8 +39,7 @@ public class SeedData implements ApplicationListener<ContextRefreshedEvent> {
 
         //generateElementsAndElementTypes();
         //getnerateMakeModelAndVehicles();
-        //generatePojectsAndEmployees();
-
+        generatePojectsAndEmployeesContactAddressData();
 
     }
 
@@ -131,12 +129,10 @@ public class SeedData implements ApplicationListener<ContextRefreshedEvent> {
 
     }
 
-    private void generatePojectsAndEmployees(){
+    private void generatePojectsAndEmployeesContactAddressData(){
         List<Project> projectList = new ArrayList<>();
         List<Project> projectList2 = new ArrayList<>();
         List<Project> projectList3 = new ArrayList<>();
-
-        List<Employee> employeeList = new ArrayList<>();
 
         projectList.add(new Project( "project one",  "client one",  1));
         projectList.add(new Project( "project two",  "client two",  2));
@@ -147,9 +143,23 @@ public class SeedData implements ApplicationListener<ContextRefreshedEvent> {
         projectList3.add(new Project( "project seven",  "client seven",  7));
         projectList3.add(new Project( "project eight",  "client eight",  8));
 
-        employeeList.add(new Employee( "FirstName one",  "LastName one",  "background one", projectList));
-        employeeList.add(new Employee( "FirstName two",  "LastName two",  "background two",  projectList2));
-        employeeList.add(new Employee( "FirstName three",  "LastName three",  "background three", projectList3));
+        List<Address> addressList = new ArrayList<>();
+        addressList.add(new Address("Home","1 st N","OneVille","MN","11111"));
+        addressList.add(new Address("Office","2 st N","TwoVille","WI","22222"));
+
+        List<Address> addressList1 = new ArrayList<>();
+        addressList1.add(new Address("Office","3 st N","ThreeVille","MN","33333"));
+        addressList1.add(new Address("Home","4 st N","FourVille","WI","44444"));
+
+        List<Address> addressList2 = new ArrayList<>();
+        addressList2.add(new Address("Office","5 st N","FiveVille","MN","55555"));
+        addressList2.add(new Address("Home","6 st N","SixVille","WI","66666"));
+
+        List<Employee> employeeList = new ArrayList<>();
+
+        employeeList.add(new Employee( "FirstName one",  "LastName one",  "background one", projectList, addressList ));
+        employeeList.add(new Employee( "FirstName two",  "LastName two",  "background two",  projectList2, addressList1 ));
+        employeeList.add(new Employee( "FirstName three",  "LastName three",  "background three", projectList3, addressList2 ));
 
         employeeService.saveListOfEmployees(employeeList);
 

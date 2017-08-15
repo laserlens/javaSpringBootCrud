@@ -3,6 +3,7 @@ package com.astontech.hr.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -10,16 +11,16 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "PersonId")
+    @Column(name = "personId")
     private Integer id;
 
     @Version
     private Integer version;
 
-    @Column(name = "FirstName")
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "LastName")
+    @Column(name = "lastName")
     private String lastName;
 
     public Person() {}
@@ -28,6 +29,8 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public Person(String firstName, String LastName, List<Contact> contactList){}
 
     @Override
     public String toString() {

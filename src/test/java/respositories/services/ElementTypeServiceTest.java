@@ -1,7 +1,7 @@
 package respositories.services;
 
 
-import com.astontech.hr.application;
+import com.astontech.hr.Application;
 import com.astontech.hr.repositories.ElementTypeRepository;
 import com.astontech.hr.services.impl.ElementTypeServiceImpl;
 import com.astontech.hr.domain.ElementType;
@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
  * Created by Adrian.Flak on 6/30/2017.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {application.class})
+@SpringApplicationConfiguration(classes = {Application.class})
 @WebAppConfiguration
 public class ElementTypeServiceTest {
 
