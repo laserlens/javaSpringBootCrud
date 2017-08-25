@@ -1,6 +1,5 @@
 package com.astontech.hr.rest;
 
-import ch.qos.logback.core.subst.Tokenizer;
 import com.astontech.hr.domain.Employee;
 import com.astontech.hr.services.EmployeeService;
 import org.apache.log4j.Logger;
@@ -54,4 +53,5 @@ public class EmployeeRest {
         }
         return results ;
     }
+
 }

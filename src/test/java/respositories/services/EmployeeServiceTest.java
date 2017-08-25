@@ -30,6 +30,7 @@ import static org.junit.Assert.*;
 public class EmployeeServiceTest {
 
     private int id;
+    private int empId;
 
     @Autowired
     private EmployeeService employeeService;
@@ -38,7 +39,7 @@ public class EmployeeServiceTest {
     private EmployeeRespository employeeRespository;
 
     @Before
-    public void testSave(){
+    public void setUp(){
 
         List<Project> projectList = new ArrayList<>();
         List<Employee> employeeList = new ArrayList<>();
@@ -54,7 +55,7 @@ public class EmployeeServiceTest {
         employeeList.add(new Employee( "FirstName one",  "LastName one",  "background one", projectList, addressList));
         employeeService.saveListOfEmployees(employeeList);
         id = employeeService.listAllEmployees().iterator().next().getId();
-
+        empId = employeeService.getEmployeeById(id).getProjects().iterator().next().getId();
 
     }
 
