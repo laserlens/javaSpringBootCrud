@@ -1,6 +1,8 @@
 package com.astontech.hr.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,10 +15,12 @@ public class Employee extends Person {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "personId")
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Project> projects;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "personId")
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Address> addressList;
 
     public Employee(){}

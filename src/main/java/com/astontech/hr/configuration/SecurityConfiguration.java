@@ -1,6 +1,6 @@
 package com.astontech.hr.configuration;
 
-import com.sun.xml.internal.bind.v2.TODO;
+
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
@@ -38,12 +38,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     private String ldapURL;
 
 
-//    private final DataSource dataSource;
-//
-//    @Autowired
-//    public SecurityConfiguration(DataSource dataSource){
-//        this.dataSource = dataSource;
-//    }
+    private final DataSource dataSource;
+
+    @Autowired
+    public SecurityConfiguration(DataSource dataSource){
+        this.dataSource = dataSource;
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -57,22 +57,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         } else if (AUTH_METHOD.equals("LDAP")) {
             auth.authenticationProvider(activeDirectoryLdapAuthenticationProvider());
         }
-//        else if (AUTH_METHOD.equals("DATABASE")){
-//            JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
-//            userDetailsService.setDataSource(dataSource);
-//            PasswordEncoder encoder = new BCryptPasswordEncoder();
-//
-//            auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-//            auth.jdbcAuthentication().dataSource(dataSource);
-//
-//            if (!userDetailsService.userExists("user")) {
-//                List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-//                authorities.add(new SimpleGrantedAuthority("USER"));
-//                User userDetails = new User("user", encoder.encode("password"), authorities);
-//
-//                userDetailsService.createUser(userDetails);
-//            }
-//       }
+        else if (AUTH_METHOD.equals("DATABASE")){
+            JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
+            userDetailsService.setDataSource(dataSource);
+            PasswordEncoder encoder = new BCryptPasswordEncoder();
+
+            auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+            auth.jdbcAuthentication().dataSource(dataSource);
+
+            if (!userDetailsService.userExists("user")) {
+                List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+                authorities.add(new SimpleGrantedAuthority("USER"));
+                User userDetails = new User("user", encoder.encode("password"), authorities);
+
+                userDetailsService.createUser(userDetails);
+            }
+       }
     }
 
 

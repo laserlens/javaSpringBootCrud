@@ -39,7 +39,7 @@ public class SeedData implements ApplicationListener<ContextRefreshedEvent> {
 
         //generateElementsAndElementTypes();
         //getnerateMakeModelAndVehicles();
-        generatePojectsAndEmployeesContactAddressData();
+        //generatePojectsAndEmployeesContactAddressData();
 
     }
 
