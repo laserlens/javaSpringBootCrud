@@ -1,16 +1,12 @@
 package com.astontech.hr.services.impl;
 
-import com.astontech.hr.domain.Address;
+
 import com.astontech.hr.domain.Employee;
-import com.astontech.hr.domain.Project;
-import com.astontech.hr.repositories.AddressRepository;
 import com.astontech.hr.repositories.EmployeeRespository;
-import com.astontech.hr.repositories.ProjectRepository;
 import com.astontech.hr.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +18,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     public EmployeeServiceImpl(EmployeeRespository employeeRespository){
         this.employeeRespository = employeeRespository;
-
     }
 
     @Override

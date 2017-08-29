@@ -6,7 +6,6 @@ import com.astontech.hr.domain.VehicleMake;
 import com.astontech.hr.domain.VehicleModel;
 import com.astontech.hr.repositories.VehicleMakeRepository;
 import com.astontech.hr.repositories.VehicleModelRepository;
-import com.astontech.hr.repositories.VehicleRepository;
 import com.astontech.hr.services.VehicleMakeService;
 import com.astontech.hr.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
