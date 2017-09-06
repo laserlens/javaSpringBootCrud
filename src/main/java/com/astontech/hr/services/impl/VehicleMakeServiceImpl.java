@@ -102,7 +102,7 @@ public class VehicleMakeServiceImpl implements VehicleMakeService {
         VehicleModel orginalModel = vehicleModelRepository.findOne(modelId);
         Vehicle orginalVehicle = vehicleService.getVehicleById(vehicleId);
 
-        // TODO: 8/29/17 refactor redundent code and anthing that uses the variables
+        // TODO: 8/29/17 refactor redundent code and anything that uses the variables
         //region repetitive code not needed
         VehicleModel updatedModel =  updateThisVehicle.getModelList().get(updateThisVehicle.getModelList().indexOf(orginalModel));
         Vehicle updatedVehicle =  updatedModel.getVehicleList().get(updatedModel.getVehicleList().indexOf(orginalVehicle));
