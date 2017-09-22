@@ -25,6 +25,8 @@ public class VehicleMakeServiceImpl implements VehicleMakeService {
     private VehicleModelRepository vehicleModelRepository;
     private VehicleService vehicleService;
 
+    private final Object key = new Object();//object used to store value of the key.
+
 
     @Autowired
     public VehicleMakeServiceImpl(VehicleMakeRepository vehicleMakeRepository, VehicleModelRepository vehicleModelRepository,
@@ -98,31 +100,34 @@ public class VehicleMakeServiceImpl implements VehicleMakeService {
 
     @Override
     public VehicleMake updateVehicleMAke(VehicleVO vehicleVO, Integer makeId, Integer modelId, Integer vehicleId){
-        VehicleMake updateThisVehicle = vehicleMakeRepository.findOne(makeId);
-        VehicleModel orginalModel = vehicleModelRepository.findOne(modelId);
-        Vehicle orginalVehicle = vehicleService.getVehicleById(vehicleId);
+        synchronized (key){//practice using synchronized
+            VehicleMake updateThisVehicle = vehicleMakeRepository.findOne(makeId);
+            VehicleModel orginalModel = vehicleModelRepository.findOne(modelId);
+            Vehicle orginalVehicle = vehicleService.getVehicleById(vehicleId);
 
-        // TODO: 8/29/17 refactor redundent code and anything that uses the variables
-        //region repetitive code not needed
-        VehicleModel updatedModel =  updateThisVehicle.getModelList().get(updateThisVehicle.getModelList().indexOf(orginalModel));
-        Vehicle updatedVehicle =  updatedModel.getVehicleList().get(updatedModel.getVehicleList().indexOf(orginalVehicle));
-        //endregion
+            // TODO: 8/29/17 refactor redundent code and anything that uses the variables
+            //region repetitive code not needed
+            VehicleModel updatedModel =  updateThisVehicle.getModelList().get(updateThisVehicle.getModelList().indexOf(orginalModel));
+            Vehicle updatedVehicle =  updatedModel.getVehicleList().get(updatedModel.getVehicleList().indexOf(orginalVehicle));
+            //endregion
 
-        if(!orginalModel.getVehicleModelName().equalsIgnoreCase(vehicleVO.getNewVehicleModel())
-                ||!updateThisVehicle.getVehicleMakeName().equalsIgnoreCase(vehicleVO.getNewVehicleMake())){
+            if(!orginalModel.getVehicleModelName().equalsIgnoreCase(vehicleVO.getNewVehicleModel())
+                    ||!updateThisVehicle.getVehicleMakeName().equalsIgnoreCase(vehicleVO.getNewVehicleMake())){
 
-            updateThisVehicle.getModelList().get(updateThisVehicle.getModelList().indexOf(orginalModel))
-                    .getVehicleList().remove(orginalVehicle);//remove original vehicle
+                updateThisVehicle.getModelList().get(updateThisVehicle.getModelList().indexOf(orginalModel))
+                        .getVehicleList().remove(orginalVehicle);//remove original vehicle
 
-            vehicleMakeRepository.save(updateThisVehicle);//save removal
-            return iterateThroughMakeListCheckifExistsSave(vehicleVO);//create new vehicle make or mdoel
-        }else {
+                vehicleMakeRepository.save(updateThisVehicle);//save removal
+                return iterateThroughMakeListCheckifExistsSave(vehicleVO);//create new vehicle make or mdoel
+            }else {
 
-            updatedVehicle.setVin(vehicleVO.getNewVehicleVin());//set vin
-            updatedVehicle.setLicensePlate(vehicleVO.getNewVehicleLicensePlate());//set plate
-            updatedVehicle.setYear(Integer.parseInt(vehicleVO.getNewVehicleYear()));//set year
-            return vehicleMakeRepository.save(updateThisVehicle);
+                updatedVehicle.setVin(vehicleVO.getNewVehicleVin());//set vin
+                updatedVehicle.setLicensePlate(vehicleVO.getNewVehicleLicensePlate());//set plate
+                updatedVehicle.setYear(Integer.parseInt(vehicleVO.getNewVehicleYear()));//set year
+                return vehicleMakeRepository.save(updateThisVehicle);
+            }
         }
+
     }
 
     //region Helper Methods
